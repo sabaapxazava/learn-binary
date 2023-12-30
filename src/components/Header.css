@@ -1,0 +1,30 @@
+.header {
+  padding: 10px 100px;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media only screen and (max-width: 600px) {
+  .header {
+    padding: 10px 0px;
+    height: 105px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 25px;
+  }
+}
+.logo {
+  font-size: 35px;
+  text-align: center;
+}
+nav {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+nav a {
+  color: white;
+}
