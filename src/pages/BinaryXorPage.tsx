@@ -16,6 +16,10 @@ export const BinaryXorPage: React.FC = () => {
   const { increaseScore, decreaseScore } = useScore();
 
   useEffect(() => {
+    startGame();
+  }, [secondBinary.length]);
+
+  function startGame() {
     const fetchData = async () => {
       const newFirstBinary = await generateBinaryNumber(5);
       setFirstBinary(newFirstBinary);
@@ -33,8 +37,7 @@ export const BinaryXorPage: React.FC = () => {
     fetchData();
 
     inputRefs.current = Array(secondBinary.length).fill(null);
-  }, [secondBinary.length]);
-
+  }
   const handleAnswer = (selectedAnswer: string, index: number) => {
     const updatedAnswers = [...userAnswers];
     updatedAnswers[index] = selectedAnswer;
@@ -46,7 +49,25 @@ export const BinaryXorPage: React.FC = () => {
     }
     if (index == 4) {
       setIsFinished(true);
+      userAnswers.forEach((item, index) => {
+        if (item == correctAnswer[index]) {
+          increaseScore();
+        } else {
+          decreaseScore();
+        }
+      });
     }
+  };
+
+  const handleClick = async () => {
+    setIsFinished(false);
+    inputRefs.current.forEach((item: HTMLInputElement | null) => {
+      if (item) {
+        item.value = "";
+        item.className = "binary-number";
+      }
+    });
+    startGame();
   };
 
   return (
@@ -84,6 +105,7 @@ export const BinaryXorPage: React.FC = () => {
           />
         ))}
       </div>
+      <button onClick={handleClick}>Try Again</button>
     </div>
   );
 };
