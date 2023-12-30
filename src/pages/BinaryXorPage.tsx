@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { generateBinaryNumber } from "../utils/generateBinaryNumber";
 import { xorBinaryDigits } from "../utils/xorBinaryDigits";
 import "./BinaryXorPage.css";
+import { useScore } from "../context/ScoreContext";
 
 export const BinaryXorPage: React.FC = () => {
   const [firstBinary, setFirstBinary] = useState<string>("");
@@ -11,6 +12,8 @@ export const BinaryXorPage: React.FC = () => {
   const [isFinished, setIsFinished] = useState<boolean>(false);
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const { increaseScore, decreaseScore } = useScore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,14 +54,14 @@ export const BinaryXorPage: React.FC = () => {
       <h1 className="title">XOR the Binary!</h1>
       <div className="binary">
         {firstBinary.split("").map((number, index) => (
-          <span className="binary-number" key={`first-${index}`}>
+          <span className="binary-number" key={index}>
             {number}
           </span>
         ))}
       </div>
       <div className="binary">
         {secondBinary.split("").map((number, index) => (
-          <span className="binary-number" key={`second-${index}`}>
+          <span className="binary-number" key={index}>
             {number}
           </span>
         ))}
@@ -76,6 +79,7 @@ export const BinaryXorPage: React.FC = () => {
                 : "binary-number"
             }
             maxLength={1}
+            pattern="[01]"
             onChange={(e) => handleAnswer(e.target.value, index)}
           />
         ))}

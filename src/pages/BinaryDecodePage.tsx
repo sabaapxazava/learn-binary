@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import { generateBinaryNumber } from "../utils/generateBinaryNumber";
 import { binaryToDecimal } from "../utils/binaryToDecimal";
 import "./BinaryDecodePage.css";
+import { useScore } from "../context/ScoreContext";
 
 export const BinaryDecodePage: React.FC = () => {
   const [binary, setBinary] = useState<string>("");
   const [correctAnswer, setCorrectAnswer] = useState<number>(0);
   const [options, setOptions] = useState<number[]>([]);
+
+  const { increaseScore, decreaseScore } = useScore();
 
   const generateOptions = (correctNumber: number): number[] => {
     const options = [correctNumber];
@@ -33,8 +36,10 @@ export const BinaryDecodePage: React.FC = () => {
 
   const handleAnswer = (selectedAnswer: number) => {
     if (selectedAnswer === correctAnswer) {
+      increaseScore();
       alert("Correct!");
     } else {
+      decreaseScore();
       alert("Incorrect. Try again.");
     }
   };

@@ -1,15 +1,18 @@
 import React, { ReactNode } from "react";
 import Header from "./Header";
 import "./Layout.css";
+import { ScoreProvider } from "../context/ScoreContext";
 interface LayoutProps {
   children: ReactNode;
 }
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="layout">
-      <Header />
-      <main>{children}</main>
-    </div>
+    <ScoreProvider>
+      <div className="layout">
+        <Header />
+        <main>{children}</main>
+      </div>
+    </ScoreProvider>
   );
 };
 
