@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { BinaryDecodePage } from "../pages/BinaryDecodePage";
 import { BinaryXorPage } from "../pages/BinaryXorPage";
 import { useScore } from "../context/ScoreContext";
+import { BinaryAndPage } from "../pages/BinaryAndPage";
 
 export const MainRoutes: React.FC = () => {
   const { score } = useScore();
@@ -13,6 +14,7 @@ export const MainRoutes: React.FC = () => {
       <Routes>
         <Route path="/" element={<BinaryDecodePage />} />
         <Route path="/xor" element={<BinaryXorPage />} />
+        <Route path="/and" element={<BinaryAndPage />} />
       </Routes>
     </>
   );
