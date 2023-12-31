@@ -3,6 +3,7 @@ import { generateBinaryNumber } from "../utils/generateBinaryNumber";
 import { binaryToDecimal } from "../utils/binaryToDecimal";
 import "./BinaryDecodePage.css";
 import { useScore } from "../context/ScoreContext";
+import Swal from "sweetalert2";
 
 export const BinaryDecodePage: React.FC = () => {
   const [binary, setBinary] = useState<string>("");
@@ -37,10 +38,18 @@ export const BinaryDecodePage: React.FC = () => {
   const handleAnswer = (selectedAnswer: number) => {
     if (selectedAnswer === correctAnswer) {
       increaseScore();
-      alert("Correct!");
+      Swal.fire({
+        title: "Good job!",
+        text: `${binary} => ${correctAnswer}`,
+        icon: "success",
+      });
     } else {
       decreaseScore();
-      alert("Incorrect. Try again.");
+      Swal.fire({
+        title: "Try Again!",
+        text: `${binary} => ${correctAnswer}`,
+        icon: "error",
+      });
     }
   };
 
