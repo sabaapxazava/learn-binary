@@ -9,7 +9,7 @@ const Header: React.FC = () => {
       <nav>
         <Link to="/">Learn Decode</Link>
         <Link to="/xor">Learn XOR</Link>
-        <Link to="/xor">Learn AND</Link>
+        <Link to="/and">Learn AND</Link>
       </nav>
     </div>
   );
