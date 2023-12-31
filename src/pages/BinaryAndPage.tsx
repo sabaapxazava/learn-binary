@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { generateBinaryNumber } from "../utils/generateBinaryNumber";
 import { andBinaryDigits } from "../utils/andBinaryDigits";
-import "./BinaryAndPage.css";
+import "../styles/BinaryAndPage.css";
 import { useScore } from "../context/ScoreContext";
 
 export const BinaryAndPage: React.FC = () => {

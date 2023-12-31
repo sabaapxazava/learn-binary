@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { generateBinaryNumber } from "../utils/generateBinaryNumber";
 import { binaryToDecimal } from "../utils/binaryToDecimal";
-import "./BinaryDecodePage.css";
+import "../styles/BinaryDecodePage.css";
 import { useScore } from "../context/ScoreContext";
 import Swal from "sweetalert2";
 
@@ -25,7 +25,7 @@ export const BinaryDecodePage: React.FC = () => {
   };
 
   useEffect(() => {
-    startGame()
+    startGame();
   }, []);
 
   const handleAnswer = (selectedAnswer: number) => {
@@ -47,7 +47,9 @@ export const BinaryDecodePage: React.FC = () => {
     }
   };
 
-  const handleClick = async () => {startGame()};
+  const handleClick = async () => {
+    startGame();
+  };
 
   const startGame = async () => {
     setIsFinished(false);

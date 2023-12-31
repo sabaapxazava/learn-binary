@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import Header from "./Header";
-import "./Layout.css";
+import "../styles/Layout.css";
 import { ScoreProvider } from "../context/ScoreContext";
 interface LayoutProps {
   children: ReactNode;
