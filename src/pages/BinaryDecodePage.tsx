@@ -9,6 +9,7 @@ export const BinaryDecodePage: React.FC = () => {
   const [binary, setBinary] = useState<string>("");
   const [correctAnswer, setCorrectAnswer] = useState<number>(0);
   const [options, setOptions] = useState<number[]>([]);
+  const [isFinished, setIsFinished] = useState<boolean>(false);
 
   const { increaseScore, decreaseScore } = useScore();
 
@@ -24,18 +25,11 @@ export const BinaryDecodePage: React.FC = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      const newBinary = await generateBinaryNumber();
-      setBinary(newBinary);
-
-      const correctNumber = binaryToDecimal(newBinary);
-      setCorrectAnswer(correctNumber);
-      const newOptions = generateOptions(correctNumber);
-      setOptions(newOptions);
-    })();
+    startGame()
   }, []);
 
   const handleAnswer = (selectedAnswer: number) => {
+    setIsFinished(true);
     if (selectedAnswer === correctAnswer) {
       increaseScore();
       Swal.fire({
@@ -53,6 +47,18 @@ export const BinaryDecodePage: React.FC = () => {
     }
   };
 
+  const handleClick = async () => {startGame()};
+
+  const startGame = async () => {
+    setIsFinished(false);
+    const newBinary = await generateBinaryNumber();
+    setBinary(newBinary);
+
+    const correctNumber = binaryToDecimal(newBinary);
+    setCorrectAnswer(correctNumber);
+    const newOptions = generateOptions(correctNumber);
+    setOptions(newOptions);
+  };
   return (
     <div className="binaryDecodeChallenge">
       <h1 className="title">Decode the Binary!</h1>
@@ -64,11 +70,22 @@ export const BinaryDecodePage: React.FC = () => {
       </p>
       <div className="answers">
         {options.map((option, index) => (
-          <button key={index} onClick={() => handleAnswer(option)}>
+          <button
+            key={index}
+            onClick={() => handleAnswer(option)}
+            className={
+              isFinished
+                ? option === correctAnswer
+                  ? "correct"
+                  : "incorrect"
+                : ""
+            }
+          >
             {option}
           </button>
         ))}
       </div>
+      <button onClick={handleClick}>Try Again</button>
     </div>
   );
 };
