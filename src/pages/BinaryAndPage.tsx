@@ -43,19 +43,23 @@ export const BinaryAndPage: React.FC = () => {
     updatedAnswers[index] = selectedAnswer;
 
     setUserAnswers(updatedAnswers);
-
-    if (inputRefs.current[index + 1]) {
-      inputRefs.current[index + 1]?.focus();
-    }
-    if (index == 4) {
-      setIsFinished(true);
-      userAnswers.forEach((item, index) => {
-        if (item == correctAnswer[index]) {
-          increaseScore();
-        } else {
-          decreaseScore();
+    if (!(inputRefs.current[index]?.value === "")) {
+      if (inputRefs.current[index + 1]) {
+        inputRefs.current[index + 1]?.focus();
+      }
+      for (let item in inputRefs.current) {
+        if (inputRefs.current[item]?.value === "") break;
+        if (Number(item) === inputRefs.current.length - 1) {
+          setIsFinished(true);
+          userAnswers.forEach((item, index) => {
+            if (item == correctAnswer[index]) {
+              increaseScore();
+            } else {
+              decreaseScore();
+            }
+          });
         }
-      });
+      }
     }
   };
 
@@ -68,6 +72,18 @@ export const BinaryAndPage: React.FC = () => {
       }
     });
     startGame();
+  };
+
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    if (event.keyCode === 8 && event.currentTarget.value === "" && index > 0) {
+      if (inputRefs.current[index - 1]) {
+        inputRefs.current[index - 1]?.focus();
+      }
+    }
+    console.log(event.keyCode);
   };
 
   return (
@@ -102,6 +118,8 @@ export const BinaryAndPage: React.FC = () => {
             maxLength={1}
             pattern="[01]"
             onChange={(e) => handleAnswer(e.target.value, index)}
+            onKeyDown={(e) => handleKeyDown(e, index)}
+            disabled={isFinished}
           />
         ))}
       </div>
