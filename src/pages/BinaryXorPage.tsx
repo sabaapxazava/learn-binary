@@ -83,7 +83,6 @@ export const BinaryXorPage: React.FC = () => {
         inputRefs.current[index - 1]?.focus();
       }
     }
-    console.log(event.keyCode);
   };
 
   return (
